@@ -21,13 +21,13 @@ extern "C" {
 
 #[wasm_bindgen(module = "/www/src/person.ts")]
 extern "C" {
-    fn name_v1() -> String;
+    fn what() -> String;
 
     type Person;
     #[wasm_bindgen(constructor)]
-    fn new() -> Person;
+    fn new(name: &str) -> Person;
     #[wasm_bindgen(method, getter)]
-    fn name(this: &Person) -> &str;
+    fn name(this: &Person) -> String;
     #[wasm_bindgen(method, setter)]
     fn set_name(this: &Person, name: &str) -> Person;
     #[wasm_bindgen(method)]
@@ -67,7 +67,9 @@ pub fn run() {
 }
 
 fn using_imported_js() {
- log(&format!("Hello from {}", name_v1()));
+    log(&format!("Hello from {}", what()));
+    let x = Person::new("Fasid");
+    log(&format!("{}", x.name()));
 }
 
 fn using_a_macro() {
