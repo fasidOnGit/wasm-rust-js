@@ -70,6 +70,9 @@ fn using_imported_js() {
     log(&format!("Hello from {}", what()));
     let x = Person::new("Fasid");
     log(&format!("{}", x.name()));
+    x.set_name("Yasmine");
+    log(&format!("{}", x.name()));
+    log(&x.talk());
 }
 
 fn using_a_macro() {
