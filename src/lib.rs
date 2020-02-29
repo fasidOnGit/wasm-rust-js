@@ -1,7 +1,8 @@
 mod utils;
-mod char_coutner;
-
+mod char_counter;
+mod js_sys_example;
 use wasm_bindgen::prelude::*;
+use crate::js_sys_example::js_sys_async;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
@@ -65,6 +66,7 @@ pub fn run() {
     using_a_macro();
     using_web_sys();
     using_imported_js();
+    js_sys_async();
 }
 
 fn using_imported_js() {
