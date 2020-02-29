@@ -1,4 +1,5 @@
 mod utils;
+mod char_coutner;
 
 use wasm_bindgen::prelude::*;
 
@@ -12,7 +13,7 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 extern "C" {
     fn alert(s: &str);
     #[wasm_bindgen(js_namespace = console)]
-    fn log(s: &str);
+    pub fn log(s: &str);
     #[wasm_bindgen(js_namespace = console, js_name=log)]
     fn log_u32(a: u32);
     #[wasm_bindgen(js_namespace = console, js_name=log)]
@@ -55,7 +56,7 @@ fn using_web_sys() {
 
 #[wasm_bindgen]
 pub fn greet() {
-    alert("Hello, Kader!");
+    // alert("Hello, Kader!");
 }
 
 #[wasm_bindgen(start)]
@@ -67,8 +68,8 @@ pub fn run() {
 }
 
 fn using_imported_js() {
-    log(&format!("Hello from {}", what()));
-    let x = Person::new("Fasid");
+    log(&format!("Hello froms {}", what()));
+    let x = Person::new("Mohideen");
     log(&format!("{}", x.name()));
     x.set_name("Yasmine");
     log(&format!("{}", x.name()));
