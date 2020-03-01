@@ -1,6 +1,11 @@
 mod utils;
 mod char_counter;
 mod js_sys_example;
+mod web_sys_dom;
+mod web_sys_closures;
+mod performance_now;
+mod fetch_json;
+
 use wasm_bindgen::prelude::*;
 use crate::js_sys_example::js_sys_async;
 
