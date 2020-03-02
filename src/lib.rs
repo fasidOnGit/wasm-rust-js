@@ -5,9 +5,13 @@ mod web_sys_dom;
 mod web_sys_closures;
 mod performance_now;
 mod fetch_json;
+mod arr_of_obj_to_rust;
 
 use wasm_bindgen::prelude::*;
 use crate::js_sys_example::js_sys_async;
+
+#[macro_use]
+extern crate serde_derive;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
@@ -67,6 +71,7 @@ pub fn greet() {
 
 #[wasm_bindgen(start)]
 pub fn run() {
+    femme::start(log::LevelFilter::Trace);
     bare_bones();
     using_a_macro();
     using_web_sys();

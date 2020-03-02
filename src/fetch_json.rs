@@ -53,10 +53,10 @@ pub async fn fetch_gh_branch() -> Result<JsValue, JsValue> {
     assert!(resp_value.is_instance_of::<Response>());
     let resp: Response = resp_value.dyn_into().unwrap();
 
-    // Convert this other `Promis` into a rust `Future`.
+    // Convert this other `Promise` into a rust `Future`.
     let json = JsFuture::from(resp.json()?).await?;
 
-    // Use serde to aprse the JSON into a struct
+    // Use serde to parse the JSON into a struct
     let branch_info: Branch = json.into_serde().unwrap();
 
     //Send the `Branch` struct back to JS as an `Object`.
