@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello wasm-pack!</title>
+    <style>
+      * {
+        font-family: sans-serif;
+        font-size: 16pt;
+      }
+      h1 {
+        font-size: 18pt;
+        font-weight: bold;
+        margin: 0;
+      }
+      button {
+        padding: 5px 10px;
+        border: none;
+        background: slategrey;
+        margin: 10px auto;
+        color: white;
+      }
+      body {
+        width: 400px;
+        margin: auto;
+      }
+      #container,
+      .counter {
+        display: flex;
+        flex-flow: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: flex-start;
+      }
+      .counter {
+        margin-bottom: 10px;
+        background: steelblue;
+        color: white;
+        align-items: center;
+        width: 100%;
+      }
+      .field {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-around;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+    <button id="add-counter" type="button">add counter</button>
+    <div id="container">
+    </div>
+    <div id="webSys"></div>
+
+<!--    Closure Rust-->
+    <div id='loading'>
+      Loading...
+    </div>
+    <div id='script' style='display:none'>
+      <p>
+        The current time is:
+        <span id='current-time'>...</span>
+      </p>
+
+      <div id='green-square'>
+        <span>Click me!</span>
+      </div>
+      <p>
+        You've clicked the green square
+        <span id='num-clicks'>0</span>
+        times
+      </p>
+    </div>
+<!--    Clsoure end-->
+
+    <script src="bootstrap.js"></script>
+  </body>
+</html>
