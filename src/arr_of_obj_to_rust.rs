@@ -59,7 +59,7 @@ pub struct Student {
 }
 
 #[wasm_bindgen]
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, Ord, PartialOrd, Eq, PartialEq)]
 pub struct Subject {
     name: String,
     key: String
@@ -92,21 +92,26 @@ pub fn data_filter(filter_obj: &JsValue) -> JsValue {
             .into_iter()
             .filter(|e| e.name.to_lowercase().contains(&filter_lower_case) || e.class.to_lowercase().contains(&filter_lower_case))
             .collect();
-        if is_empty_none(el.borrow().unit.borrow()) {
+        if !is_empty_none(el.borrow().unit.borrow()) {
             result = elem.borrow().students.clone()
                 .into_iter()
                 .filter(|e| e.subject.key == elem.borrow().unit.as_ref().unwrap().to_string())
                 .collect();
         }
-        if is_empty_none(el.borrow().sort_property.borrow()) {
-            let sort = elem.borrow().sort_property.borrow().unwrap().to_owned();
-            let res = elem.borrow().students.clone();
-            if is_empty_none(elem.borrow().sort_dir.borrow()) || elem.borrow().sort_dir.unwrap().contains("asc".into()) {
-                elem.borrow().students.clone()
-                    .sort_by_key(|&e| e.class);
+        if !is_empty_none(el.borrow().sort_property.borrow()) {
+            let sort = elem.clone().into_inner().sort_property;
+            if is_empty_none(elem.borrow().sort_dir.borrow()) || elem.borrow().sort_dir.as_ref().unwrap().eq("asc") { // Missed asc
+                result.sort_by_key(|e| match &sort {
+                    Some(s) => match s.as_str() {
+                        "name" => e.clone().name,
+                        "class" => e.clone().class,
+                        _ => e.clone().class
+                    },
+                    None => e.clone().class
+                });
             } else {
-                elem.borrow().students.clone().sort_by_key(
-                    |e| Reverse(elem.clone().into_inner().sort_property)
+                result.sort_by_key(
+                    |_e| Reverse(elem.clone().into_inner().sort_property)
                 );
             }
         }

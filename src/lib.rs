@@ -30,7 +30,7 @@ extern "C" {
     fn  log_many(a: &str, b:&str);
 }
 
-#[wasm_bindgen(module = "/www/src/person.ts")]
+#[wasm_bindgen(module = "/www_/src/person.ts")]
 extern "C" {
     fn what() -> String;
 
@@ -43,6 +43,10 @@ extern "C" {
     fn set_name(this: &Person, name: &str) -> Person;
     #[wasm_bindgen(method)]
     fn talk(this: &Person) -> String;
+    #[wasm_bindgen(method, getter)]
+    fn age(this: &Person) -> usize;
+    #[wasm_bindgen(method, getter)]
+    fn work(this: &Person) -> JsValue;
 }
 fn bare_bones() {
     log("Hello from Rust!");
@@ -67,11 +71,22 @@ fn using_web_sys() {
 #[wasm_bindgen]
 pub fn greet() {
     // alert("Hello, Kader!");
+    println!("Hello! Kader!");
+}
+
+#[wasm_bindgen]
+pub fn take_a_closure(f: &js_sys::Function) -> Result<usize, JsValue> {
+    let this = JsValue::NULL;
+    alert(
+        f.call0(&this)?.as_string().unwrap().as_str()
+    );
+    Ok(10)
 }
 
 #[wasm_bindgen(start)]
 pub fn run() {
     femme::start(log::LevelFilter::Trace);
+    log::info!("deii");
     bare_bones();
     using_a_macro();
     using_web_sys();
@@ -85,10 +100,19 @@ fn using_imported_js() {
     log(&format!("{}", x.name()));
     x.set_name("Yasmine");
     log(&format!("{}", x.name()));
+    log(&format!("My age is {}", x.age()));
+    let work: Work = JsValue::into_serde(&x.work()).unwrap();
+    log(&format!("My age is {}", work.company));
     log(&x.talk());
 }
 
 fn using_a_macro() {
     console_log!("Hello {}!", "World!");
     console_log!("11 +3 = {}", 11+3);
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+struct Work {
+    pub salary: usize,
+    pub company: String
 }
