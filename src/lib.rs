@@ -30,7 +30,7 @@ extern "C" {
     fn  log_many(a: &str, b:&str);
 }
 
-#[wasm_bindgen(module = "/www_/src/person.ts")]
+#[wasm_bindgen(module = "/frontend/src/person.ts")]
 extern "C" {
     fn what() -> String;
 
@@ -77,9 +77,9 @@ pub fn greet() {
 #[wasm_bindgen]
 pub fn take_a_closure(f: &js_sys::Function) -> Result<usize, JsValue> {
     let this = JsValue::NULL;
-    alert(
-        f.call0(&this)?.as_string().unwrap().as_str()
-    );
+    // alert(
+    //     f.call0(&this)?.as_string().unwrap().as_str()
+    // );
     Ok(10)
 }
 

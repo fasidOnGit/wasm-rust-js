@@ -1,6 +1,8 @@
+import { BsonJson } from './bson-json';
 import * as person from "./person";
 import {ChartCounter} from './chart-counter';
 import * as wasm from 'wasm-rust-js';
+import {Snow} from './snow';
 export class WasmWeb {
   
   private aString = 'A String';
@@ -70,5 +72,10 @@ export class WasmWeb {
         subject: {name: 'Tamil', key: 'Tamil'}
       }]
     }))
+
+
+    //bson
+    new BsonJson();
+    new Snow();
   }
 }
